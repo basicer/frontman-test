@@ -1,4 +1,4 @@
-// https://github.com/AngeloFaella/DocumentOutline
+/* https://github.com/AngeloFaella/DocumentOutline */
 
 let DocumentOutline;
 

@@ -35,7 +35,7 @@ for (let f of fs.readdirSync(assets)) {
 }
 
 const auth = new google.auth.GoogleAuth({
-  credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT),
+  credentials: JSON.parse(Buffer.from(process.env.GOOGLE_SERVICE_ACCOUNT, "base64").toString("utf8")),
   scopes: ["https://www.googleapis.com/auth/documents.readonly"],
 });
 

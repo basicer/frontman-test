@@ -1,4 +1,4 @@
-name: Deploy Next.js site to Pages
+name: Deploy to Pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -69,8 +69,12 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Build with Next.js
-        run: ${{ steps.detect-package-manager.outputs.runner }} node index.js
+      - name: Build with Frontman
+        run: node index.js
+        env: # Or as an environment variable
+          GOOGLE_SERVICE_ACCOUNT: ${{ secrets.GOOGLE_SERVICE_ACCOUNT }}
+          DOCUMENT_ID: ${{ secrets.DOCUMENT_ID }}
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
