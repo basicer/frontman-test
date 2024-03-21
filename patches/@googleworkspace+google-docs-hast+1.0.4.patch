@@ -1,0 +1,20 @@
+diff --git a/node_modules/@googleworkspace/google-docs-hast/dist/index.js b/node_modules/@googleworkspace/google-docs-hast/dist/index.js
+index 706f442..3cf5ed3 100644
+--- a/node_modules/@googleworkspace/google-docs-hast/dist/index.js
++++ b/node_modules/@googleworkspace/google-docs-hast/dist/index.js
+@@ -1628,9 +1628,14 @@ var isText = (o) => {
+ 
+ // src/hast/paragraph/inlineObject.ts
+ var transformInlineObject = ({ inlineObjectId, textStyle }, doc) => {
+-  const { imageProperties } = doc.inlineObjects[inlineObjectId].inlineObjectProperties.embeddedObject;
++  const eo =  doc.inlineObjects[inlineObjectId].inlineObjectProperties.embeddedObject;
++  const { imageProperties } = eo;
+   if (imageProperties) {
+     const el = h("img", { src: imageProperties.contentUri });
++    if (eo.size) {
++      el.properties.height = `${eo.size.height.magnitude}${eo.size.height.unit}`;
++      el.properties.width = `${eo.size.width.magnitude}${eo.size.width.unit}`;
++    }
+     return wrapStyle(el, textStyle);
+   }
+ };
